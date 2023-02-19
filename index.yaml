@@ -1,0 +1,21 @@
+apiVersion: v1
+entries:
+  zapbitgo:
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2023-02-18T16:49:45.938965-10:00"
+    description: A helm chart to deploy the bitgo application @zap-strike-sandbox.iam.gserviceaccount.com
+    digest: fd8dc2fbae5cfe5ed595b5dce2f71711f2f4af27fd75b911c8142b78d7c8545c
+    keywords:
+    - bitgo
+    - strike
+    - zap
+    maintainers:
+    - email: sre-engineer@strike.me
+      name: strike-sre
+    name: zapbitgo
+    type: application
+    urls:
+    - https://ronballesteros.github.io/helm-charts/zapbitgo-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-02-18T16:49:45.938507-10:00"

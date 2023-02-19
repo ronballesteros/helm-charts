@@ -1,0 +1,16 @@
+apiVersion: v2
+name: zapbitgo
+description: A helm chart to deploy the bitgo application @zap-strike-sandbox.iam.gserviceaccount.com
+
+type: application
+version: 0.1.0
+appVersion: "0.1.1"
+
+keywords:
+  - bitgo
+  - strike
+  - zap
+
+maintainers:
+  - name: strike-sre
+    email: sre-engineer@strike.me
