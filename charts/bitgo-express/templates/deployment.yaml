@@ -53,14 +53,45 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /api/v2/ping
               port: http
+              {{- if .Values.ssl.enabled }}
+              scheme: HTTPS
+              {{- else }}
+              scheme: HTTP
+              {{- end }}
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
           readinessProbe:
             httpGet:
-              path: /
+              path: /api/v2/ping
               port: http
+              {{- if .Values.ssl.enabled }}
+              scheme: HTTPS
+              {{- else }}
+              scheme: HTTP
+              {{- end }}
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.ssl.enabled }}
+          volumeMounts:
+            - name: bitgo-ssl-cert
+              mountPath: {{ .Values.ssl.path }}
+              readOnly: true
+          {{- end }}
+      {{- if .Values.ssl.enabled }}
+      volumes:
+        - name: bitgo-ssl-cert
+          secret:
+            secretName: {{ .Values.ssl.secretName }}
+            items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
+       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

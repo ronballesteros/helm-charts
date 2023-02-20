@@ -23,6 +23,16 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+readinessProbe:
+  path: /api/v2/ping
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+livenessProbe:
+  path: /api/v2/ping
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -38,7 +48,17 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  port: 3080
+
+# Whether to require SSL.  This is disabled by default.  Disabling SSL will also require
+# diabling SSL in Bitgo if running in a production environment.
+# https://developers.bitgo.com/guides/get-started/express/reference
+ssl:
+  enabled: false
+  # secretName:
+  # key:
+  # cert:
+  # path:
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -66,13 +86,20 @@ tolerations: []
 affinity: {}
 
 vault:
-  enabled: true
+  enabled: false
   # This role grants access to the following paths in Vault
   # - <service-account-name>/*
   # - restricted/<service-account-name/*
-  role: zap-service-account-path-restricted
+  role: "" #zap-service-account-path-restricted
   extraAnnotations: {}
 
 annotations: {}
 
+# Add environment variables that will be added to the bitgo container.
 env: {}
+  # NODE_ENV: production
+  # BITGO_ENV: prod
+  # BITGO_PORT: 3080
+  # BITGO_DISABLE_SSL: true
+  # BITGO_KEYPATH: /etc/ssl/certs/tls.key
+  # BITGO_CRTPATH: /etc/ssl/certs/tls.crt
