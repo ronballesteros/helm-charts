@@ -1,0 +1,10 @@
+{{- if .Values.ssl.enabled }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Values.ssl.secretName }}
+type: kubernetes.io/tls
+data:
+  tls.crt: {{ .Values.ssl.cert | b64enc }}
+  tls.key: {{ .Values.ssl.key | b64enc }}
+{{- end }}
