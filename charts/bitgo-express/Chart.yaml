@@ -1,16 +1,14 @@
 apiVersion: v2
-name: zapbitgo
-description: A helm chart to deploy the bitgo application
+name: bitgo-express
+description: A helm chart to deploy the bitgo-express application in a Kubernetes cluster.
 
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: "0.1.0"
 
 keywords:
   - bitgo
-  - strike
-  - zap
 
 maintainers:
-  - name: strike-sre
-    email: sre-engineer@strike.me
+  - name: R2B
+    email: r2b.ninja@gmail.com
