@@ -1,9 +1,26 @@
 apiVersion: v1
 entries:
+  bitgo-express:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-02-22T15:22:02.581157-10:00"
+    description: A helm chart to deploy the bitgo-express application in a Kubernetes
+      cluster.
+    digest: c29d5916a9897feb6fa2c577b0f8979b579111a2cc3900f484b94e7854827130
+    keywords:
+    - bitgo
+    maintainers:
+    - email: r2b.ninja@gmail.com
+      name: R2B
+    name: bitgo-express
+    type: application
+    urls:
+    - https://ronballesteros.github.io/helm-charts/bitgo-express-0.1.1.tgz
+    version: 0.1.1
   zapbitgo:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2023-02-19T20:18:22.815424-10:00"
+    created: "2023-02-22T15:22:02.581573-10:00"
     description: A helm chart to deploy the bitgo application
     digest: 383c19a1c8b34c8b3ca07208a8db9356c2b7343b2ae638b6cb2695ad2f829ff2
     keywords:
@@ -18,4 +35,4 @@ entries:
     urls:
     - https://ronballesteros.github.io/helm-charts/zapbitgo-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-19T20:18:22.814928-10:00"
+generated: "2023-02-22T15:22:02.580643-10:00"

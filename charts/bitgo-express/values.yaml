@@ -1,4 +1,4 @@
-# Default values for zapbitgo.
+# Default values for bitgo-express.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -53,12 +53,14 @@ service:
 # Whether to require SSL.  This is disabled by default.  Disabling SSL will also require
 # diabling SSL in Bitgo if running in a production environment.
 # https://developers.bitgo.com/guides/get-started/express/reference
+# With `ssl` enabled, `secreName`, `key`, `cert`, and `path` fields need to be configured.
 ssl:
   enabled: false
-  # secretName:
-  # key:
-  # cert:
-  # path:
+  secretName:
+  key: 
+  cert:
+  # Enter the path/location of where the ssl cert should be stored; example "/etc/ssl/certs/"
+  path:
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -72,26 +74,11 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
-
-vault:
-  enabled: false
-  # This role grants access to the following paths in Vault
-  # - <service-account-name>/*
-  # - restricted/<service-account-name/*
-  role: "" #zap-service-account-path-restricted
-  extraAnnotations: {}
 
 annotations: {}
 

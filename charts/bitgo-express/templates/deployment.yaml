@@ -1,37 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "zapbitgo.fullname" . }}
+  name: {{ include "bitgo-express.fullname" . }}
   labels:
-    {{- include "zapbitgo.labels" . | nindent 4 }}
+    {{- include "bitgo-express.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "zapbitgo.selectorLabels" . | nindent 6 }}
+      {{- include "bitgo-express.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      name: {{ include "zapbitgo.fullname" . }}
+      name: {{ include "bitgo-express.fullname" . }}
       annotations:
       {{- range $key, $value := .Values.annotations }}
         {{ $key }}: {{ $value | quote }}
       {{- end }}
-      {{- if .Values.vault.enabled }}
-        vault.security.banzaicloud.io/vault-tls-secret: vault-tls
-        vault.security.banzaicloud.io/vault-serviceaccount: {{ template "zapbitgo.serviceAccountName" . }}
-        vault.security.banzaicloud.io/vault-role: {{ .Values.vault.role }}
-        {{- range $key, $value := .Values.vault.extraAnnotations }}
-        {{ $key }}: {{ $value | quote }}
-        {{- end }}
-      {{- end }}
       labels:
-        {{- include "zapbitgo.selectorLabels" . | nindent 8 }}
+        {{- include "bitgo-express.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "zapbitgo.serviceAccountName" . }}
+      serviceAccountName: {{ include "bitgo-express.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -53,7 +45,7 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /api/v2/ping
+              path: {{ .Values.livenessProbe.path }}
               port: http
               {{- if .Values.ssl.enabled }}
               scheme: HTTPS
@@ -64,7 +56,7 @@ spec:
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
           readinessProbe:
             httpGet:
-              path: /api/v2/ping
+              path: {{ .Values.readinessProbe.path }}
               port: http
               {{- if .Values.ssl.enabled }}
               scheme: HTTPS
