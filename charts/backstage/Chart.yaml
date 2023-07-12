@@ -1,0 +1,30 @@
+apiVersion: v2
+name: backstage
+sources:
+- https://github.com/backstage/charts
+- https://github.com/backstage/backstage
+type: application
+description: A Helm chart for deploying a Backstage application.
+version: 0.1.0
+
+home: https://backstage.io
+icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/backstage/icon/color/backstage-icon-color.svg
+kubeVersion: '>= 1.19.0-0'
+maintainers:
+- name: Backstage
+  url: https://backstage.io
+
+keywords:
+- backstage
+- idp
+
+dependencies:
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  tags:
+  - bitnami-common
+  version: 2.x.x
+- condition: postgresql.enabled
+  name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 12.x.x
