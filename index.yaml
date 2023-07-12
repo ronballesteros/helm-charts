@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   backstage:
   - apiVersion: v2
-    created: "2023-07-12T10:33:50.126765-10:00"
+    created: "2023-07-12T10:47:28.338966-10:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -14,7 +14,7 @@ entries:
       repository: https://charts.bitnami.com/bitnami
       version: 12.x.x
     description: A Helm chart for deploying a Backstage application.
-    digest: 5f2e6b90314319f4454d9a1e5e9dc031a9150c325790dd989f46c5ddf4089e0a
+    digest: 1f6f86ea2ccf64ed375d88598a9532268effe13f2113da3266818ddd4ca0a64f
     home: https://backstage.io
     icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/backstage/icon/color/backstage-icon-color.svg
     keywords:
@@ -35,10 +35,10 @@ entries:
   bitgo-express:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2023-07-12T10:33:50.127318-10:00"
+    created: "2023-07-12T10:47:28.339422-10:00"
     description: A helm chart to deploy the bitgo-express application in a Kubernetes
       cluster.
-    digest: 888bb644b5dfd6c670ac3ea1a0e00479def0c7d63f01abd821ed4cf90f54c3bf
+    digest: 40e9b58d3819baf5a44a6087637c411786353d2361602a35646a03a4f0f9a1ef
     keywords:
     - bitgo
     maintainers:
@@ -49,22 +49,4 @@ entries:
     urls:
     - https://ronballesteros.github.io/helm-charts/bitgo-express-0.1.1.tgz
     version: 0.1.1
-  zapbitgo:
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2023-07-12T10:33:50.128073-10:00"
-    description: A helm chart to deploy the bitgo application
-    digest: 383c19a1c8b34c8b3ca07208a8db9356c2b7343b2ae638b6cb2695ad2f829ff2
-    keywords:
-    - bitgo
-    - strike
-    - zap
-    maintainers:
-    - email: sre-engineer@strike.me
-      name: strike-sre
-    name: zapbitgo
-    type: application
-    urls:
-    - https://ronballesteros.github.io/helm-charts/zapbitgo-0.1.0.tgz
-    version: 0.1.0
-generated: "2023-07-12T10:33:50.121364-10:00"
+generated: "2023-07-12T10:47:28.334092-10:00"
