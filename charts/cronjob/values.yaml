@@ -1,0 +1,45 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+global:
+  enabled: true
+
+# Add an array of jobs to be executed
+# To add additional cron jobs, simply start another array below.
+jobs:
+  - name: sample-task
+    image:
+      repository: sample-image
+      tag: 1.0.0
+      imagePullPolicy: IfNotPresent
+    schedule: "0 * * * *"
+    failedJobsHistoryLimit: 2
+    serviceAccount:
+      name: blahblah
+    successfulJobsHistoryLimit: 5
+    concurrencyPolicy: Replace
+    restartPolicy: OnFailure
+    command: ["/bin/bash", "-c", "echo $(date) - performing backup"]
+    resources:
+      limits:
+        cpu: 100m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 512Mi
+    nodeSelector:
+      type: general
+    tolerations:
+      - effect: NoExecute
+        operator: Equal
+        key: "key1"
+        value: "value1"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/e2e-az-name
+              operator: NotIn
+              values:
+              - e2e-az3
+              - e2e-az4

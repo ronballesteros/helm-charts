@@ -1,0 +1,16 @@
+{{- if .Values.global.enabled }}
+  {{- range $job := .Values.jobs }}
+    {{- if $job.configmap.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $job.configmap.name }}
+  labels:
+    {{- include "cronjob.labels" $ | nindent 4 }}
+data:
+  {{ $job.configmap.name }}.conf: |-
+    {{- $job.configmap.config | nindent 4 }}
+    {{- end }}
+  {{- end }}
+{{- end }}

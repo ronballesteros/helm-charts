@@ -17,3 +17,4 @@ override.tf.json
 release.sh
 *.bak
 credentials.json
+*.bak

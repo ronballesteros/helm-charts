@@ -1,0 +1,17 @@
+apiVersion: v2
+name: cronjob
+description: A helm chart for deploying cron jobs within a Kubernetes cluster
+icon: https://github.com/kubernetes/community/blob/master/icons/png/resources/labeled/cronjob-128.png
+
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+keywords:
+ - cronjob
+ - helm
+
+maintainers:
+  - name: R2B
+    email: r2b.ninja@gmail.com
+
