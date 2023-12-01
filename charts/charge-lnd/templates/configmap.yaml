@@ -1,0 +1,11 @@
+{{- if .Values.configuration.configFile.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "charge-lnd.name" . }}-config
+  labels:
+    {{- include "charge-lnd.labels" . | nindent 4 }}
+data:
+  charge-lnd.conf: |-
+{{ .Values.configuration.configFile.config | indent 4 }}
+{{- end }}

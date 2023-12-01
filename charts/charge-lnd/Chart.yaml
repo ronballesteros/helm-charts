@@ -1,0 +1,16 @@
+apiVersion: v2
+name: charge-lnd
+description: A helm chart for deploying charge-lnd in a kubernetes cluster
+icon: https://github.com/kubernetes/community/blob/master/icons/png/resources/labeled/cronjob-128.png
+
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+keywords:
+ - cronjob
+ - helm
+
+maintainers:
+  - name: R2B
+    email: r2b.ninja@gmail.com

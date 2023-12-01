@@ -1,0 +1,91 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.cronjob.name }}
+spec:
+  schedule: {{ .Values.cronjob.schedule | quote }}
+  concurrencyPolicy: {{ .Values.cronjob.concurrencyPolicy }}
+  failedJobsHistoryLimit: {{ .Values.cronjob.failedJobsHistoryLimit }}
+  successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: {{ default (include "charge-lnd.fullname" .) .Values.serviceAccount.name }}
+          containers:
+          - name: {{ .Values.cronjob.name }}
+            image: {{ .Values.cronjob.image.repository }}:{{ .Values.cronjob.image.tag }}
+            {{- if .Values.cronjob.env }}
+            env:
+            {{- range .Values.cronjob.env }}
+              - name: {{ .name | quote }}
+                value: {{ .value | quote }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.cronjob.envFrom }}
+            envFrom:
+            {{- range .Values.cronjob.From }}
+              - name: {{ .name | quote }}
+                value: {{ .value | quote }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.cronjob.command }}
+            command:
+              {{- range .Values.cronjob.command }}
+              - {{ . | quote }}
+              {{- end }}
+            {{- end }}
+            args:
+              {{- range .Values.cronjob.args }}
+              - {{ . }}
+              {{- end }}
+            {{- with .Values.cronjob.resources }}
+            resources:
+{{ toYaml . | indent 14 }}
+            {{- end }}
+            {{- if or .Values.configuration.configFile.enabled .Values.configuration.secrets.enabled .Values.cronjob.additionalVolumeMounts }}
+          volumeMounts:
+            {{- if .Values.configuration.configFile.enabled }}
+            - name: charge-lnd-config
+              mountPath: {{ .Values.configuration.configFile.mountPath }}
+              subPath: charge-lnd.conf
+            {{- end }}
+            {{- if .Values.configuration.secrets.enabled }}
+            - name: charge-lnd-secret
+              mountPath: {{ .Values.configuration.secrets.mountPath }}
+              readOnly: true
+            {{- end }}
+            {{- if .Values.cronjob.additionalVolumeMounts }}
+              {{- toYaml .Values.cronjob.additionalVolumeMounts | nindent 12 }}
+            {{- end }}
+          {{- end }}
+          {{- with .Values.cronjob.nodeSelector }}
+          nodeSelector:
+{{ toYaml . | indent 12 }}
+          {{- end }}
+          {{- with .Values.cronjob.affinity }}
+          affinity:
+{{ toYaml . | indent 12 }}
+          {{- end }}
+          {{- with .Values.cronjob.tolerations }}
+          tolerations:
+{{ toYaml . | indent 12 }}
+          {{- end }}
+          restartPolicy: {{ .Values.cronjob.restartPolicy }}
+          {{- if or .Values.configuration.configFile.enabled .Values.configuration.secrets.enabled .Values.cronjob.additionalVolumes }}
+          volumes:
+            {{- if .Values.configuration.configFile.enabled }}
+            - name: charge-lnd-config
+              configMap:
+                name: charge-lnd-config
+                defaultMode: 484
+            {{- end }}
+            {{- if .Values.configuration.secrets.enabled }}
+            - name: charge-lnd-secret
+              secret:
+                secretName: charge-lnd-secret
+            {{- end }}
+            {{- if .Values.cronjob.additionalVolumes }}
+              {{- toYaml .Values.cronjob.additionalVolumes | nindent 12 }}
+            {{- end }}
+          {{- end }}

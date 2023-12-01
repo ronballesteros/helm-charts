@@ -1,0 +1,70 @@
+serviceAccount:
+  create: true # Set to false if you want to use an existing service account
+  name: "" # Leave empty to use the default name or specify the existing service account name
+  annotations: {}
+
+cronjob:
+  schedule: "0 5 * * *"
+  image:
+    repository: accumulator/charge-lnd
+    tag: v0.2.13
+  name: charge-lnd-cronjob
+  command: []
+  failedJobsHistoryLimit: 2
+  serviceAccount:
+    name: lightning-yield-lnd
+  env:
+    - name: GRPC_LOCATION
+      value: "lightning-yield-lnd-external:10009"
+  successfulJobsHistoryLimit: 5
+  concurrencyPolicy: Replace
+  restartPolicy: OnFailure
+  # arguments that are passed to charge-lnd executable
+  args:
+    - --lnddir=/lnd/.lnd/lnd.conf
+    - --grpc=$(GRPC_LOCATION)
+    - --config=/lnd/.lnd/charge-lnd.conf
+    - --tlscert=/lnd/.lnd/secrets/lndCertificate
+    - --macaroon=/lnd/.lnd/secrets/lndMacaroon
+    - --dry-run
+  resources:
+    limits:
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+  additionalVolumeMounts:
+    - name: lnd-config-volume
+      mountPath: /lnd/.lnd/lnd.conf
+      subPath: lnd.conf
+
+  additionalVolumes:
+    - name: lnd-config-volume
+      configMap:
+        name: lightning-yield-lnd-lnd
+        defaultMode: 0744
+
+configuration:
+  configFile:
+    enabled: false
+    mountPath: /lnd/.lnd/charge-lnd.conf
+    config: |
+      [default]
+      # 'default' is special, it is used if no other policy matches a channel
+      strategy = static
+      base_fee_msat = 1_000
+      fee_ppm = 10
+  secrets:
+    enabled: false
+    mountPath: /lnd/.lnd/secrets
+    lndCertificate: ""
+    lndMacaroon: ""
+
+vault:
+  enabled: true
+  # This role grants access to the following paths in Vault
+  # - <service-account-name>/*
+  # - restricted/<service-account-name/*
+  role: zap-service-account-path-restricted
+  extraAnnotations: {}

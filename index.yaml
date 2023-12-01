@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   backstage:
   - apiVersion: v2
-    created: "2023-11-29T23:55:24.735172-10:00"
+    created: "2023-11-30T15:38:10.22335-10:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -35,7 +35,7 @@ entries:
   bitgo-express:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2023-11-29T23:55:24.73573-10:00"
+    created: "2023-11-30T15:38:10.225086-10:00"
     description: A helm chart to deploy the bitgo-express application in a Kubernetes
       cluster.
     digest: e0447122b7faefbdee9870631643864da57ed0138622a2f6865d3f2a66f04780
@@ -49,10 +49,28 @@ entries:
     urls:
     - https://ronballesteros.github.io/helm-charts/bitgo-express-0.1.1.tgz
     version: 0.1.1
+  charge-lnd:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-11-30T15:38:10.225959-10:00"
+    description: A helm chart for deploying charge-lnd in a kubernetes cluster
+    digest: bf8af3019946ca28237f4317007fd98df99507aa294aee96b0f2f8a942e9cc01
+    icon: https://github.com/kubernetes/community/blob/master/icons/png/resources/labeled/cronjob-128.png
+    keywords:
+    - cronjob
+    - helm
+    maintainers:
+    - email: r2b.ninja@gmail.com
+      name: R2B
+    name: charge-lnd
+    type: application
+    urls:
+    - https://ronballesteros.github.io/helm-charts/charge-lnd-0.1.0.tgz
+    version: 0.1.0
   cronjob:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2023-11-29T23:55:24.7363-10:00"
+    created: "2023-11-30T15:38:10.226571-10:00"
     description: A helm chart for deploying cron jobs within a Kubernetes cluster
     digest: 65bb4957ddf0c14c447afe65f9aa59d6404598268580ff28c1fe15056e352422
     icon: https://github.com/kubernetes/community/blob/master/icons/png/resources/labeled/cronjob-128.png
@@ -67,4 +85,4 @@ entries:
     urls:
     - https://ronballesteros.github.io/helm-charts/cronjob-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-29T23:55:24.73001-10:00"
+generated: "2023-11-30T15:38:10.217862-10:00"
